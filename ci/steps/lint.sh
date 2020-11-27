@@ -7,11 +7,10 @@ main() {
   yarn --frozen-lockfile
 
   git submodule update --init
-  # We do not `yarn vscode` to make lint.sh faster.
-  # If the patch fails to apply, then it's likely already applied
-  yarn vscode:patch &> /dev/null || true
+
+  # We need to fetch VS Code's deps for proper linting.
   cd lib/vscode
-  yarn --ignore-scripts
+  yarn
   cd "$OLDPWD"
 
   yarn lint
